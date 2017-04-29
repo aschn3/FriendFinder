@@ -16,7 +16,20 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 require("./app/routing/apiRoutes")(app);
 require("./app/routing/htmlRoutes")(app);
 
+var connection = mysql.createConnection({
+  host: "localhost",
+  user: "andy",
+  password: "password123",
+  database: "friend_finder_db"
+});
 
+connection.connect(function(err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
+});
 
 
 
