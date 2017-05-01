@@ -13,20 +13,39 @@ module.exports = function(app) {
   
   app.post("/api/friends", function(req, res) {
    
-    if (friendsData.length < 10) {
-      friendsData.push(req.body);
-      res.json(true);
+    var bestMatch = {
+      name: "",
+      photo: "",
+      friendDifference: 1000
+    };
+    
+
+    var userData = req.body;
+    var userScores = userData.scores;
+
+    var totalDifference = 0;
+
+    for (var i = o; i < friendsData.length; i++){
+
+      console.log(friendsData[i].name);
+      totalDifference = 0;
+
+    for (var j = o; j < friendsData.length; j++){
+
+      totalDifference += Mathabs(parseInt(userScores[j]) - parseInt(friends[i].scores[j]));
+
+      if (totalDifference <= bestMatch.friendDifference) {
+
+        bestMatch.name = friendsData[i].name;
+        bestMatch.photo = friendsData[i].photo;
+        bestMatch.friendDifference = totalDifference;
+      }
     }
-    
-    
-  });
+  }
 
+  friendsData.push(userData);
   
-  app.post("/api/clear", function() {
-   
-    frinedsData = [];
-    
 
-    console.log(friendsData);
+  res.json(bestMatch);
   });
 };

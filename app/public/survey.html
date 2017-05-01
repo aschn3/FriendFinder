@@ -166,8 +166,9 @@
 		$(selector).chosen(config[selector]);
 		}
 		
-		$("#submit").on("click", function(){
-			
+		$("#submit").on("click", function(event){
+			event.preventDefault();
+
 			function validateForm() {
 				var isValid = true;
 				$('.form-control').each(function() {
